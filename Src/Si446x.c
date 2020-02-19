@@ -38,9 +38,9 @@
 #define rssi_dBm(val)			((val / 2) - 134)
 
 #if SI446X_INTERRUPTS != 0
-	#if defined(ARDUINO) && SI446X_IRQ == -1
-		#error "SI446X_INTERRUPTS is 1, but SI446X_IRQ is set to -1!"
-	#elif !defined(ARDUINO) && !defined(IRQ_BIT)
+	/*#if defined(ARDUINO) && SI446X_IRQ == -1	//more ARDUINO SPECIFIC CODE
+		#error "SI446X_INTERRUPTS is 1, but SI446X_IRQ is set to -1!" */
+	/*#elif*/#if !defined(ARDUINO) && !defined(IRQ_BIT)
 		#error "SI446X_INTERRUPTS is 1, but SI446X_IRQ_PORT or SI446X_IRQ_BIT has not been set!"
 	#endif
 #endif
@@ -91,6 +91,8 @@ void __attribute__((weak, alias ("__empty_callback0"))) SI446X_CB_ADDRMISS(void)
 
 // http://www.nongnu.org/avr-libc/user-manual/atomic_8h_source.html
 
+/*
+ * MORE ARDUINO SPECIFIC CODE
 #ifdef ARDUINO
 
 #if SI446X_INTERRUPTS != 0
@@ -126,6 +128,7 @@ static inline uint8_t interrupt_on(void)
 #endif
 
 #endif
+*/
 
 static inline uint8_t cselect(void)
 {
@@ -151,8 +154,10 @@ static inline uint8_t cdeselect(void)
 // Otherwise, just turn off our own radio interrupt while doing SPI stuff.
 #if SI446X_INTERRUPTS == 0 && SI446X_INT_SPI_COMMS == 0
 #define SI446X_ATOMIC() ((void)(0));
+/*
 #elif defined(ARDUINO)
 #define SI446X_ATOMIC() for(uint8_t _cs2 = interrupt_off(); _cs2; _cs2 = interrupt_on())
+*/
 #elif defined(__STM32L011xx_H)
 #define SI446X_ATOMIC() for(uint8_t _cs2 = SI_DisableNMI(); _cs2; _cs2 = SI_EnableNMI())
 #else
@@ -163,18 +168,19 @@ static inline uint8_t cdeselect(void)
 uint8_t Si446x_irq_off()
 {
 #if SI446X_INTERRUPTS != 0
-
+/*
 #ifdef ARDUINO
 	detachInterrupt(digitalPinToInterrupt(SI446X_IRQ));
 	isrState_local++;
 	return 0;
-#else
+	*/
+//#else
 	uint8_t origVal = SI446X_REG_EXTERNAL_INT;
 	SI446X_REG_EXTERNAL_INT &= ~_BV(SI446X_BIT_EXTERNAL_INT);
 	origVal = !!(origVal & _BV(SI446X_BIT_EXTERNAL_INT));
 	//origVal += 1; // We always want to return a non-zero value so the for() loop will loop TODO
 	return origVal;
-#endif
+//#endif
 
 #else
 	return 0;
@@ -185,16 +191,17 @@ void Si446x_irq_on(uint8_t origVal)
 {
 #if SI446X_INTERRUPTS != 0
 
-#ifdef ARDUINO
+/*#ifdef ARDUINO
 	((void)(origVal));
 	if(isrState_local > 0)
 		isrState_local--;
 	if(isrState_local == 0)
 		attachInterrupt(digitalPinToInterrupt(SI446X_IRQ), Si446x_SERVICE, FALLING);
-#else
+		*/
+//#else
 	if(origVal)// == 2) TODO
 		SI446X_REG_EXTERNAL_INT |= _BV(SI446X_BIT_EXTERNAL_INT);
-#endif
+//#endif
 
 #else
 	((void)(origVal));
@@ -911,15 +918,16 @@ uint8_t Si446x_dump(void* buff, uint8_t group)
 	return length;
 }
 
-#if defined(ARDUINO) || SI446X_INTERRUPTS == 0
+#if /*defined(ARDUINO) || REMOVING ALL ARDUINO SPECIFIC CODE*/ SI446X_INTERRUPTS == 0
 void Si446x_SERVICE()
 #else
 ISR(INT_VECTOR)
 #endif
 {
-#if defined(ARDUINO) && (SI446X_INTERRUPTS == 1 || SI446X_INT_SPI_COMMS == 1)
+/*#if defined(ARDUINO) && (SI446X_INTERRUPTS == 1 || SI446X_INT_SPI_COMMS == 1)
 	isrBusy = 1;
 #endif
+*/
 
 	uint8_t interrupts[8];
 	interrupt(interrupts);
@@ -1000,7 +1008,8 @@ ISR(INT_VECTOR)
 	if(interrupts[6] & (1<<SI446X_WUT_PEND))
 		SI446X_CB_WUT();
 
-#if defined(ARDUINO) && (SI446X_INTERRUPTS == 1 || SI446X_INT_SPI_COMMS == 1)
+/*#if defined(ARDUINO) && (SI446X_INTERRUPTS == 1 || SI446X_INT_SPI_COMMS == 1)
 	isrBusy = 0;
 #endif
+	*/
 }
