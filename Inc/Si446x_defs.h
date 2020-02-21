@@ -124,7 +124,8 @@ typedef enum
 #ifdef __STM32L011xx_H
 
 #define SPI_PORT 						SPI1 // Current SPI peripheral used. Change if needed.
-#define SI446X_REG_EXTERNAL_INT			SPI1_IRQn
+#define SI446X_REG_EXTERNAL_INT			EXTI_IMR // CMSIS standard register for External Interrupts
+#define SI446X_BIT_EXTERNAL_INT			EXTI_IMR_IM1 // CMSIS Standard Interrupt mask for GPIOx1.
 #define SPI_PORT_INIT_VALUES			0x034C
 
 #define _BV(bit) 						(1 << (bit))

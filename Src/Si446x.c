@@ -175,9 +175,9 @@ uint8_t Si446x_irq_off()
 	return 0;
 	*/
 //#else
-	uint8_t origVal = SI446X_REG_EXTERNAL_INT;
-	SI446X_REG_EXTERNAL_INT &= ~_BV(SI446X_BIT_EXTERNAL_INT);
-	origVal = !!(origVal & _BV(SI446X_BIT_EXTERNAL_INT));
+	uint32_t origVal = *(volatile uint32_t *)SI446X_REG_EXTERNAL_INT;
+	*(volatile uint32_t *)SI446X_REG_EXTERNAL_INT &= ~SI446X_BIT_EXTERNAL_INT; // ex: 11110111b
+	origVal = !!(origVal & SI446X_BIT_EXTERNAL_INT);
 	//origVal += 1; // We always want to return a non-zero value so the for() loop will loop TODO
 	return origVal;
 //#endif
@@ -199,8 +199,8 @@ void Si446x_irq_on(uint8_t origVal)
 		attachInterrupt(digitalPinToInterrupt(SI446X_IRQ), Si446x_SERVICE, FALLING);
 		*/
 //#else
-	if(origVal)// == 2) TODO
-		SI446X_REG_EXTERNAL_INT |= _BV(SI446X_BIT_EXTERNAL_INT);
+	if (origVal)
+		SI446X_REG_EXTERNAL_INT |= SI446X_BIT_EXTERNAL_INT;
 //#endif
 
 #else
