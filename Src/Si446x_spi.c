@@ -21,7 +21,12 @@ void init_si_interrupts(void)
 }
 
 
-static void init_spi_param_cr1(ST_SPI *spi_loc){
+
+/**
+ * @brief Initialize the CR1 Register parameters with a 32 bit input.
+ */
+static void init_spi_param_cr1(ST_SPI *spi_loc)
+{
     if(SPI_PORT_INIT_VALUES & 0x40)//Ensure value of SPI Enable is 1
         return;
     else{
@@ -65,7 +70,13 @@ static void init_spi_param_cr1(ST_SPI *spi_loc){
 }
 
 
-void init_spi(void){
+/*
+ * @brief	Gives the spi interface a memory location then initializes its values.
+ *
+ * -----  only named 'init_spi' and not 'spi_init' for debug reasons  -----
+ */
+void init_spi(void)
+{
     si446x_spi.Instance = SPI_PORT;
 
     init_spi_param_cr1(&si446x_spi);

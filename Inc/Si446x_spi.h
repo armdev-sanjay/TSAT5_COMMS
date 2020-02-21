@@ -78,10 +78,6 @@ inline uint8_t spi_transfer(uint8_t data)
 }
 
 
-/**
- * @brief Initialize the CR1 Register parameters with a 32 bit input.
- */
-static void init_spi_param_cr1();
 
 
 /**
