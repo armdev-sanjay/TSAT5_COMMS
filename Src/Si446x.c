@@ -130,12 +130,14 @@ static inline uint8_t interrupt_on(void)
 #endif
 */
 
+/* SPI NSS Select (Logic LOW) */
 static inline uint8_t cselect(void)
 {
 	CSN_PORT->BSRR = 1 << (SI446X_CSN_BIT); // Bitshifts left to lower half of register.
 	return 1;
 }
 
+/* SPI NSS Deselect (Logic HIGH) */
 static inline uint8_t cdeselect(void)
 {
 	CSN_PORT->BSRR = 1 << (SI446X_CSN_BIT + 16); // Bitshifts left to the upper half of the register.
@@ -176,9 +178,8 @@ uint8_t Si446x_irq_off()
 	*/
 //#else
 	uint32_t origVal = *(volatile uint32_t *)SI446X_REG_EXTERNAL_INT;
-	*(volatile uint32_t *)SI446X_REG_EXTERNAL_INT &= ~SI446X_BIT_EXTERNAL_INT; // ex: 11110111b
-	origVal = !!(origVal & SI446X_BIT_EXTERNAL_INT);
-	//origVal += 1; // We always want to return a non-zero value so the for() loop will loop TODO
+	*(volatile uint32_t *)SI446X_REG_EXTERNAL_INT &= ~(SI446X_BIT_EXTERNAL_INT); // ex: 11110111b
+	origVal = !!(origVal & SI446X_BIT_EXTERNAL_INT); // Will always return 0 assuming the above executed properly.
 	return origVal;
 //#endif
 
@@ -468,7 +469,13 @@ static void applyStartupConfig(void)
 	uint8_t buff[17];
 	for(uint16_t i=0;i<sizeof(config);i++)
 	{
+
+		/*	ORIGINAL CODE - Commented out for preservation sake. Use if other part is broken.
 		memcpy_P(buff, &config[i], sizeof(buff));
+		doAPI(&buff[1], buff[0], NULL, 0);
+		i += buff[0];
+		*/
+		memcpy(buff, &config[i], sizeof(buff));
 		doAPI(&buff[1], buff[0], NULL, 0);
 		i += buff[0];
 	}
@@ -476,7 +483,7 @@ static void applyStartupConfig(void)
 
 void Si446x_init()
 {
-	spiDeselect();
+	cdeselect();
 
 	gpio_init(); // TODO
 /*
