@@ -1,0 +1,3 @@
+Si446x_spi.c:16:13:init_spi_param_cr1	16	static
+Si446x_spi.c:60:6:init_spi	8	static
+Si446x_spi.c:67:6:spi_init	8	static
