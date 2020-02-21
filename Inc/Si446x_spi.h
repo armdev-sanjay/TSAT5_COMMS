@@ -15,10 +15,6 @@
 
 // TODO: Move the IRQ stuff to a separate file?
 
-typedef struct{
-	EXTI_TypeDef	*Instance;	//Instance of EXTI to work with
-	ST_EXTIINIT		Init;		//Initialization parameters
-}ST_EXTI;
 
 typedef struct{
 	uint32_t		CRv;		//Control Register values
@@ -26,6 +22,13 @@ typedef struct{
 	uint32_t		RSTRv;		//Rising-Edge Trigger Enable Register
 	uint32_t		FSTRv;		//Falling-Edge Trigger Enable Register
 }ST_EXTIINIT;
+
+typedef struct{
+	EXTI_TypeDef	*Instance;	//Instance of EXTI to work with
+	ST_EXTIINIT		Init;		//Initialization parameters
+}ST_EXTI;
+
+
 
 
 
