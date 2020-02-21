@@ -123,6 +123,8 @@ typedef enum
 
 #ifdef __STM32L011xx_H
 
+#define REG(register)	CONCAT(*(volatile uint8_t *)&, register)  
+
 #define SPI_PORT 						SPI1 // Current SPI peripheral used. Change if needed.
 #define SI446X_REG_EXTERNAL_INT			SPI1_IRQn
 #define SPI_PORT_INIT_VALUES			0x034C
