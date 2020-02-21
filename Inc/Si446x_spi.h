@@ -63,24 +63,9 @@ void gpio_init(void);
 
 void spi_init(void);
 
-inline void spi_transfer_nr(uint8_t data)
-{
-	// The following is adapted from: https://stackoverflow.com/questions/56440516/stm32-spi-slow-compute.
+void spi_transfer_nr(uint8_t data);
 
-	*(volatile uint8_t *)&SPI_PORT->DR = data; // Transmit
-    while((SPI_PORT->SR & (SPI_SR_TXE | SPI_SR_BSY)) != SPI_SR_TXE)
-        ;
-}
-
-inline uint8_t spi_transfer(uint8_t data)
-{
-	*(volatile uint8_t *)&SPI_PORT->DR = data; // Transmit
-    while((SPI_PORT->SR & (SPI_SR_TXE | SPI_SR_BSY)) != SPI_SR_TXE)
-        ;
-    
-    // Adapted from STM32 HAL files.
-    return *(volatile uint8_t *)&SPI_PORT->DR; // Receive
-}
+uint8_t spi_transfer(uint8_t data);
 
 
 
