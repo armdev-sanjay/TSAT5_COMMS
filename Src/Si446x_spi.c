@@ -14,6 +14,15 @@
 ST_SPI si446x_spi;
 ST_EXTI si446x_exti;
 
+//Yes, I currently do not know what to do with this.
+//TODO:
+// Figure out if this is to initialize si446x GPIO.
+// If yes then this will likely be removed.
+void gpio_init(void)
+{
+	return;
+}
+
 /* Initialize external interrupt handler for use with Si446x */
 void init_si_interrupts(void)
 {

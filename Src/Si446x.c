@@ -485,7 +485,7 @@ void Si446x_init()
 {
 	cdeselect();
 
-	gpio_init(); // TODO
+	gpio_init(); // TODO See Si446x_spi.c for this. Yes I don't know what to do with it rn.
 /*
 #ifdef IRQ_BIT
 	// Interrupt pin (input with pullup)
