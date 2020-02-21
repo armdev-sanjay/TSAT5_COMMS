@@ -12,10 +12,18 @@
 
 
 ST_SPI si446x_spi;
+ST_EXTI si446x_exti;
+
+/* Initialize external interrupt handler for use with Si446x */
+void init_si_interrupts(void)
+{
+	si446x_exti.Instance = EXTI;
+}
+
 
 static void init_spi_param_cr1(ST_SPI *spi_loc){
     if(SPI_PORT_INIT_VALUES & 0x40)//Ensure value of SPI Enable is 1
-        return 0;
+        return;
     else{
         spi_loc->Init.CPHA        =     SPI_PORT_INIT_VALUES && 0x0001;
         spi_loc->Init.CPOL        =     SPI_PORT_INIT_VALUES && 0x0002;
