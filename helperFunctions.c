@@ -5,11 +5,11 @@ void printItem(Command_t *command)
 {
     printf("****************************************");
     printf("Received from: %u (Priority %u)\n", command->id, command->priority);
-    printf("Command: %u\tArgs: { ", command->cmd);
+    printf("Command: %X\tArgs: { ", command->cmd);
 
     for (size_t i = 0; i < 7; i++)
     {
-        printf("%u", command->args[i]);
+        printf("%X", command->args[i]);
     }
 
     printf("}\nOutgoing? ");
