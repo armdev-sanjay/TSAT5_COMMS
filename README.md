@@ -1,15 +1,10 @@
+# Queue Test
+### Authors: Brendan Doherty, Nikolaus Reichert
 
-# TSAT5_COMMS
+## How to Run
 
-Authors: 
-  Sanjay, Brendan, Nikolaus, Ryan, Skylar, Rafid
+```
+gcc ./test.c ./pQueue.c ./helperFunctions.c -o test.out
 
-# TSAT 5 Communications Software Repository 
-
-### Ongoing Projects
-
-##### Image Transmission over UHF Amateur Radio 
-##### Configuring SI446x for use with ARM M0+ MCU
-
-
-
+./a.out
+```
