@@ -1,19 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct
-{
-    int priority;
-    int id;
-    int cmd;
-    int args[7];
-    int outgoing; // 0 = rx, 1 = tx
-} Command_t;
-
-void enqueue(Command_t *);
-void swap(int *, int *);
-void sort();
-Command_t *dequeue();
+#include "pQueue.h"
 
 int size = 0;
 Command_t *cmds[10];
