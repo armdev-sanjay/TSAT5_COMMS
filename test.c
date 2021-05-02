@@ -14,6 +14,38 @@ int main(void)
         .outgoing = 1
     };
 
+    Command_t cmd2 = {
+        .priority = 54,
+        .id = 35,
+        .cmd = 0x43,
+        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
+        .outgoing = 1
+    };
+
+    Command_t cmd3 = {
+        .priority = 0,
+        .id = 35,
+        .cmd = 0x43,
+        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
+        .outgoing = 1
+    };
+
+    Command_t cmd4 = {
+        .priority = 55,
+        .id = 35,
+        .cmd = 0x43,
+        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
+        .outgoing = 1
+    };
+
+    Command_t cmd5 = {
+        .priority = 55,
+        .id = 35,
+        .cmd = 0x43,
+        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
+        .outgoing = 1
+    };
+
     printItem(&cmd1);
 
 
