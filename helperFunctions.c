@@ -3,13 +3,13 @@
 
 void printItem(Command_t *command)
 {
-    printf("****************************************");
+    printf("****************************************\n");
     printf("Received from: %u (Priority %u)\n", command->id, command->priority);
-    printf("Command: %X\tArgs: { ", command->cmd);
+    printf("Command: 0x%X\tArgs: { ", command->cmd);
 
     for (size_t i = 0; i < 7; i++)
     {
-        printf("%X", command->args[i]);
+        printf("0x%X ", command->args[i]);
     }
 
     printf("}\nOutgoing? ");
@@ -17,5 +17,5 @@ void printItem(Command_t *command)
     if (command->outgoing) printf("Yes\n");
         else printf("No\n");    
 
-    printf("****************************************");
+    printf("****************************************\n");
 }
