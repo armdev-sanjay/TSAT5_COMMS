@@ -1,3 +1,6 @@
+#ifndef DATATYPE_H
+#define DATATYPE_H
+
 typedef struct {
     char priority;
     char id;
@@ -32,3 +35,5 @@ typedef struct
                           This parameter must be a number between Min_Data = 0 and Max_Data = 0xFF. */
 
 } CAN_RxHeaderTypeDef;
+
+#endif
