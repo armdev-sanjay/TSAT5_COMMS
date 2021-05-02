@@ -4,7 +4,7 @@
 ## How to Run
 
 ```
-gcc ./test.c ./pQueue.c ./helperFunctions.c -o test.out
+gcc ./test.c ./pQueue.c ./helperFunctions.c ./pQueue.c -o test.out
 
 ./a.out
 ```

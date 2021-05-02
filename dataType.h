@@ -2,11 +2,11 @@
 #define DATATYPE_H
 
 typedef struct {
-    char priority;
-    char id;
-    char cmd;
-    char args[7];
-    char outgoing; /* 0 == incoming. 1 == outgoing. */
+    int priority;
+    int id;
+    int cmd;
+    int args[7];
+    int outgoing; /* 0 == incoming. 1 == outgoing. */
 } Command_t;
 
 /* Ripped from STM32 libs */

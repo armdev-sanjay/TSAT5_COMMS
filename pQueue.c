@@ -5,6 +5,8 @@
 int size = 0;
 Command_t *cmds[10];
 
+/*
+
 int main()
 {
     Command_t *cmd;
@@ -58,6 +60,8 @@ int main()
     printf("End of processing");
 }
 
+*/
+
 void swap(int *a, int *b)
 {
     int temp = *b;
@@ -65,15 +69,15 @@ void swap(int *a, int *b)
     *a = temp;
 }
 
-void enqueue(Command_t *cmd)
+void enqueue(Command_t *arr[], Command_t *cmd)
 {
     int prty = cmd->priority;
     cmds[size] = cmd;
     size++;
-    sort();
+    sort(arr);
 }
 
-void sort()
+void sort(Command_t *arr[])
 {
     int currPrty;
     int nextPrty;
@@ -93,7 +97,7 @@ void sort()
     }
 }
 
-Command_t *dequeue()
+Command_t *dequeue(Command_t *arr[])
 {
     Command_t *out = cmds[0];
     size--;

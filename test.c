@@ -1,12 +1,35 @@
 #include "test.h"
 #include "dataType.h"
 #include "helperFunctions.h"
+#include "pQueue.h"
+#include <stdlib.h>
+
+#define QUEUE_SIZE 16
 
 int main(void)
 {
 
+    Command_t *queue[QUEUE_SIZE];
+
+    for (size_t i = 0; i < QUEUE_SIZE; i++)
+    {
+        Command_t *tempCommand = (Command_t *)malloc(sizeof(Command_t));
+
+        /* Clear struct. */
+        tempCommand->priority = 0;
+        tempCommand->id = 0;
+        tempCommand->cmd = 0;
+        
+        for (size_t i = 0; i < 7; i++)
+        {
+            tempCommand->args[i] = 0;
+        }
+        tempCommand->outgoing = 0;
+    }
+    
+
     /* Instantiate a new Command. */
-    Command_t cmd1 = {
+    Command_t cmd = {
         .priority = 15,
         .id = 35,
         .cmd = 0x43,
@@ -14,40 +37,7 @@ int main(void)
         .outgoing = 1
     };
 
-    Command_t cmd2 = {
-        .priority = 54,
-        .id = 35,
-        .cmd = 0x43,
-        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
-        .outgoing = 1
-    };
-
-    Command_t cmd3 = {
-        .priority = 0,
-        .id = 35,
-        .cmd = 0x43,
-        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
-        .outgoing = 1
-    };
-
-    Command_t cmd4 = {
-        .priority = 55,
-        .id = 35,
-        .cmd = 0x43,
-        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
-        .outgoing = 1
-    };
-
-    Command_t cmd5 = {
-        .priority = 55,
-        .id = 35,
-        .cmd = 0x43,
-        .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
-        .outgoing = 1
-    };
-
-    printItem(&cmd1);
-
+    enqueue(queue, &cmd);
 
     return 0; 
 }
