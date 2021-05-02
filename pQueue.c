@@ -57,7 +57,6 @@ void swap(int *a, int *b)
 void enqueue(Command_t *cmd)
 {
     int prty = cmd->priority;
-    cmds[0] = cmd;
     cmds[size] = cmd;
     size++;
     sort();
