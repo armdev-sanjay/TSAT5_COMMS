@@ -14,6 +14,8 @@ int main(void)
         .outgoing = 1
     };
 
+    printItem(&cmd1);
+
 
     return 0; 
 }
