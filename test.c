@@ -4,33 +4,31 @@
 #include "pQueue.h"
 #include <stdlib.h>
 
-#define QUEUE_SIZE 16
-
 int main(void)
 {
 
-    Command_t *queue[QUEUE_SIZE];
+    Queue_t *queueOne = malloc(sizeof(Queue_t));
 
-    for (size_t i = 0; i < QUEUE_SIZE; i++) {
-        queue[i] = NULL;
+    for (size_t i = 0; i < MAX_QUEUE_SIZE; i++) {
+        queueOne->cmds[i] = NULL;
     }
     
 
-    for (size_t i = 0; i < QUEUE_SIZE; i++)
-    {
-        Command_t *tempCommand = (Command_t *)malloc(sizeof(Command_t));
+    // for (size_t i = 0; i < MAX_QUEUE_SIZE; i++)
+    // {
+    //     Command_t *tempCommand = (Command_t *)malloc(sizeof(Command_t));
 
-        /* Clear struct. */
-        tempCommand->priority = 0;
-        tempCommand->id = 0;
-        tempCommand->cmd = 0;
+    //     /* Clear struct. */
+    //     tempCommand->priority = 0;
+    //     tempCommand->id = 0;
+    //     tempCommand->cmd = 0;
         
-        for (size_t i = 0; i < 7; i++)
-        {
-            tempCommand->args[i] = 0;
-        }
-        tempCommand->outgoing = 0;
-    }
+    //     for (size_t i = 0; i < 7; i++)
+    //     {
+    //         tempCommand->args[i] = 0;
+    //     }
+    //     tempCommand->outgoing = 0;
+    // }
     
 
     /* Instantiate a new Command. */
@@ -42,7 +40,7 @@ int main(void)
         .outgoing = 1
     };
 
-    enqueue(queue, &cmd);
+    enqueue(queueOne, &cmd);
 
     Command_t cmdTwo = {
         .priority = 12,
@@ -51,6 +49,11 @@ int main(void)
         .args = {0x15, 0x44, 0x00, 0x00, 0x05, 0xff, 0x88},
         .outgoing = 1
     };
+
+    enqueue(queueOne, &cmdTwo);
+
+    printItem(dequeue(queueOne));
+    printItem(dequeue(queueOne));
 
     return 0; 
 }
