@@ -3,9 +3,7 @@
 
 #include "dataType.h"
 
-void enqueue(Command_t *arr[], Command_t *);
-void swap(int *, int *);
-void sort(Command_t *arr[]);
-Command_t *dequeue(Command_t *arr[]);
+void enqueue(Queue_t *queue, Command_t *cmd);
+Command_t *dequeue(Queue_t *queue);
 
 #endif
