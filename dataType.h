@@ -1,6 +1,10 @@
 #ifndef DATATYPE_H
 #define DATATYPE_H
 
+#include <stdlib.h>
+
+#define MAX_QUEUE_SIZE 16
+
 typedef struct {
     int priority;
     int id;
@@ -8,6 +12,12 @@ typedef struct {
     int args[7];
     int outgoing; /* 0 == incoming. 1 == outgoing. */
 } Command_t;
+
+typedef struct {
+  size_t size;
+  Command_t *cmds[MAX_QUEUE_SIZE];
+} Queue_t;
+
 
 /* Ripped from STM32 libs */
 typedef struct
